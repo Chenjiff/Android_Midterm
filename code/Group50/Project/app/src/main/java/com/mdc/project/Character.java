@@ -1,11 +1,10 @@
 package com.mdc.project;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Character implements Serializable {
-    private int id;
-    //INITIAL_ID = 0
-    private static int ID = 0;
+    private long id;
     //头像
     int icon;
     //称号
@@ -27,7 +26,7 @@ public class Character implements Serializable {
 
     public Character(int icon, String award, String name, String type, int existValue, int attackValue,
                      int skillValue, int difficulty, String passive, String skill1, String skill2, String skill3) {
-        this.id = ID++;
+        this.id = System.currentTimeMillis();
         this.icon = icon;
         this.award = award;
         this.name = name;
@@ -42,11 +41,11 @@ public class Character implements Serializable {
         this.skill3 = skill3;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

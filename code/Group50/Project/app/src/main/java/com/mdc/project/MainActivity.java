@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     cursor.getInt(6), cursor.getInt(7), cursor.getInt(8),
                     cursor.getString(9), cursor.getString(10), cursor.getString(11),
                     cursor.getString(12));
-            character.setId(cursor.getInt(0));
+            character.setId(cursor.getLong(0));
             characters.add(character);
         } while(cursor.moveToNext());
         return characters;
