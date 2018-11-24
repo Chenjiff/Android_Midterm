@@ -26,7 +26,7 @@ public class Character implements Serializable {
 
     public Character(int icon, String award, String name, String type, int existValue, int attackValue,
                      int skillValue, int difficulty, String passive, String skill1, String skill2, String skill3) {
-        this.id = System.currentTimeMillis();
+        this.id = System.nanoTime();
         this.icon = icon;
         this.award = award;
         this.name = name;
