@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,23 +27,15 @@ public class Detail extends AppCompatActivity {
         ImageView im = (ImageView) findViewById(R.id.detail_icon);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_layout);
+        //标题栏添加返回按钮
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         character = (Character)getIntent().getSerializableExtra("Click_Character");
         setViewContentByCharacter(character);
-
-        ImageButton back = (ImageButton)findViewById(R.id.back) ;
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent();
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("back", character);
-                setResult(1, intent);
-                intent.putExtras(bundle);
-                finish();
-            }
-        });
 
         isHome = true;
         FloatingActionButton floatingButton_edit = (FloatingActionButton) findViewById(R.id.floatingButton_edit);
@@ -86,6 +80,16 @@ public class Detail extends AppCompatActivity {
             }
         });
     }
+    //返回英雄列表
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     //设置属性视图内容
     public void setViewContentByCharacter(Character character) {
@@ -118,5 +122,6 @@ public class Detail extends AppCompatActivity {
         ((EditText) findViewById(R.id.Skill_2_edit)).setText(character.getSkill2());
         ((EditText) findViewById(R.id.Skill_3_edit)).setText(character.getSkill3());
     }
+
 }
 

@@ -296,13 +296,6 @@
             app:layout_constraintLeft_toRightOf="@+id/tv12"
             />
 
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back"
-            android:background="#3A5FCD"
-            app:layout_constraintRight_toRightOf="parent"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingButton_edit"

@@ -3,6 +3,7 @@ package com.mdc.project;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MyRecyclerViewAdapter mAdapterForSearch;
     private ArrayList<Character> dataForSearch;
     private AppDAO appDAO;
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         appDAO = new AppDAO(this);
+
+        //播发背景音乐
+        playLocalFile();
 
         ImageView searchButton = (ImageView) findViewById(R.id.search_button1);
         searchButton.setOnClickListener(this);
@@ -77,6 +85,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //注册EventBus
         EventBus.getDefault().register(this);
+
+        //实现RadioGroup按钮查看不同类别英雄的功能
+        final RadioGroup radioGroup =findViewById(R.id.radio_group);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(((RadioButton)findViewById(checkedId)).getText().toString().equals("全部"))
+                {
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                    recycleViewForSearch.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    dataForSearch.clear();
+                    for(Character character: data) {
+                        if (!character.getType().matches(((RadioButton)findViewById(checkedId)).getText().toString())) {
+                            continue;
+                        }
+                        dataForSearch.add(character);
+                    }
+                    mAdapterForSearch.notifyDataSetChanged();
+                    mRecyclerView.setVisibility(View.INVISIBLE);
+                    recycleViewForSearch.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    //背景音乐
+    private void playLocalFile() {
+        player = MediaPlayer.create(this, R.raw.aov);
+        //播放工程res目录下的raw目录中的音乐文件aov.mp3
+        try {
+            player.prepare();
+        } catch (IllegalStateException e) {
+
+        } catch (IOException e) {
+
+        }
+        player.start();
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                // 循环播放
+                try {
+                    mp.start();
+                }
+                catch (IllegalStateException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     //创建用于搜索的RecyclerView，初始设为不可见
@@ -278,6 +336,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(player.isPlaying()){
+            player.stop();
+        }
+        player.release();
         //注销EventBus订阅
         if(EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);

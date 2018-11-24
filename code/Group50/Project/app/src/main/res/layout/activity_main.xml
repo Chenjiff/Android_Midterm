@@ -28,12 +28,13 @@
                 />
 
             <RadioGroup
-                android:layout_width="wrap_content"
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center"
                 android:checkedButton="@id/rb1"
-                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+
                 >
 
                 <RadioButton
@@ -41,36 +42,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="全部"
-                    android:textSize="13dp"
-                    />
+                    android:textSize="10dp" />
+
                 <RadioButton
                     android:id="@+id/rb2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="坦克"
-                    android:textSize="13dp"
-                    />
+                    android:textSize="11dp" />
+
                 <RadioButton
                     android:id="@+id/rb3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="战士"
-                    android:textSize="13dp"
-                    />
+                    android:textSize="11dp" />
+
                 <RadioButton
                     android:id="@+id/rb4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="刺客"
-                    android:textSize="13dp"
-                    />
+                    android:textSize="11dp" />
+
                 <RadioButton
                     android:id="@+id/rb5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="法师"
-                    android:textSize="13dp"
-                    />
+                    android:textSize="11dp" />
+
+                <RadioButton
+                    android:id="@+id/rb6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="射手"
+                    android:textSize="11dp" />
             </RadioGroup>
         </LinearLayout>
 
