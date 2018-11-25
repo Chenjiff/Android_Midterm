@@ -25,6 +25,14 @@
 ## 三、课堂实验结果
 ### (1)实验截图
 我这次主要负责的部分是UI设计和recyclerviewAdapter。设计的几个界面的UI如下，
+主界面
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1125/205017_3ca01da8_2162412.png "Screenshot_20181125-204610.png")
+detail界面
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1125/205036_520b0035_2162412.png "Screenshot_20181125-204622.png")
+修改界面
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1125/205051_10c27182_2162412.png "Screenshot_20181125-204627.png")
+添加界面
+![输入图片说明](https://images.gitee.com/uploads/images/2018/1125/205239_ef7247e9_2162412.png "Screenshot_20181125-204636.png")
 
 ### (2)实验步骤以及关键代码
 
@@ -45,4 +53,4 @@
 #### 作业要求
 * 命名要求：学号_姓名_实验编号，例如12345678_张三_lab1.md
 * 实验报告提交格式为md
-* 实验内容不允许抄袭，我们要进行代码相似度对比。如发现抄袭，按0分处理![输入图片说明](https://images.gitee.com/uploads/images/2018/1125/204849_cbc6b627_2162412.png "在这里输入图片标题")![输入图片说明](https://images.gitee.com/uploads/images/2018/1125/204856_6f875781_2162412.png "在这里输入图片标题")
+* 实验内容不允许抄袭，我们要进行代码相似度对比。如发现抄袭，按0分处理![输入图片说明]
