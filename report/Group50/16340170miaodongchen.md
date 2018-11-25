@@ -35,13 +35,86 @@ detail界面
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/1125/205239_ef7247e9_2162412.png "Screenshot_20181125-204636.png")
 
 ### (2)实验步骤以及关键代码
+1. RecyclerViewAdapter我用的是之前的万能适配器，在使用时修改代码即可，十分方便。
 
-### (3)实验遇到的困难以及解决思路
+```
+//ViewHolder如下，
+    static class MyViewHolder extends RecyclerView.ViewHolder {
+        private SparseArray<View> views;
+        private View view;
+        //构造器
+        public MyViewHolder(View v){
+            super(v);
+            view = v;
+            views = new SparseArray<>();
+        }
+
+        public static MyViewHolder get(Context _context, ViewGroup _viewGroup, int _layoutId) {
+            View _view = LayoutInflater.from(_context).inflate(_layoutId, _viewGroup, false);
+            MyViewHolder holder = new MyViewHolder(_view);
+            return holder;
+        }
+
+        public <T extends View> T getView(int _viewId) {
+            View _view = views.get(_viewId);
+            if (_view == null) {
+                // 创建view
+                _view = view.findViewById(_viewId);
+                // 将view存入views
+                views.put(_viewId, _view);
+            }
+            return (T)_view;
+        }
+    }
+//其他主要部分如下，
+@Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
+        //加载布局
+        MyViewHolder holder = MyViewHolder.get(parent.getContext(), parent, R.layout.recyclerview_item);
+        return holder;
+    }
+
+
+    //定义抽象方法convert
+    public abstract void convert(MyViewHolder holder, T data, int position);
+
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        convert(holder, mDatas.get(position), position);
+
+        //OnClickListener
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if(onItemClickListener != null) {
+                    int pos = holder.getLayoutPosition();
+                    onItemClickListener.onItemClick(holder.itemView, pos);
+                }
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(onItemClickListener != null) {
+                    int pos = holder.getLayoutPosition();
+                    onItemClickListener.onItemLongClick(holder.itemView, pos);
+                }
+                return true;
+            }
+        });
+
+    }
+```
+
+(3) 遇到的困难：<br>
+    做修改界面时，想过用一个新的类似detail界面来修改，通过点击一个编辑键来实现，但是后来发现这样逻辑就变得复杂很多，对之后开发的同学也很不友好，于是用了和第一个项目相似的方法，通过FloatingActionButton来切换隐藏界面来实现功能。
   
 ---
 
 ## 四、课后实验结果
-  
+见于本文件夹的视频
 ---
 
 ## 五、实验思考及感想
