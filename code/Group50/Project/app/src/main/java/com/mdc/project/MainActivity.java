@@ -53,9 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ImageView searchButton = (ImageView) findViewById(R.id.search_button1);
         searchButton.setOnClickListener(this);
 
-        FloatingActionButton fButton = (FloatingActionButton) findViewById(R.id.floatingButton_add);
-        fButton.setOnClickListener(this);
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mLayoutManager = new GridLayoutManager(this, 3);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -332,10 +329,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //Activity销毁函数，用于EventBus的注销
+    //Activity销毁函数，用于EventBus的注销和MediaPlayer的释放
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //释放MediaPlayer
         if(player.isPlaying()){
             player.stop();
         }
